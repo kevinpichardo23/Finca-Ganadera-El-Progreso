@@ -1,0 +1,130 @@
+/* ============================================================
+   RESPONSIVE.CSS — adaptación a tablets y celulares
+   ============================================================ */
+
+/* ---------- Pantallas grandes ya cubiertas por style.css ---------- */
+
+/* ---------- Laptops pequeñas / tablets horizontales ---------- */
+@media (max-width: 1024px) {
+    .services-grid,
+    .products-grid,
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .about-cards-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: 30px;
+    }
+}
+
+/* ---------- Tablets ---------- */
+@media (max-width: 860px) {
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: min(320px, 80%);
+        height: 100vh;
+        background: var(--beige);
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 26px;
+        padding: 40px;
+        box-shadow: -8px 0 30px rgba(0,0,0,0.15);
+        transition: right var(--transicion);
+        z-index: 1050;
+    }
+
+    .nav-links.open {
+        right: 0;
+    }
+
+    .nav-link,
+    header.scrolled .nav-link {
+        color: var(--texto);
+        font-size: 1.05rem;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mini-gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .gallery-item:nth-child(1),
+    .gallery-item:nth-child(4) {
+        grid-row: span 1;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .footer-brand,
+    .footer-social {
+        justify-content: center;
+    }
+}
+
+/* ---------- Celulares ---------- */
+@media (max-width: 600px) {
+    .hero {
+        padding-top: 110px;
+    }
+
+    .section {
+        padding: 70px 0;
+    }
+
+    .services-grid,
+    .products-grid,
+    .team-grid,
+    .mini-gallery,
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .hero-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .contact-form {
+        padding: 26px;
+    }
+
+    .lightbox-nav {
+        font-size: 1.3rem;
+        padding: 8px;
+    }
+
+    .lightbox img {
+        max-width: 92vw;
+    }
+}
