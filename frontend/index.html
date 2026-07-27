@@ -41,6 +41,8 @@
                 <li><a href="#servicios" class="nav-link">Servicios</a></li>
                 <li><a href="#productos" class="nav-link">Productos</a></li>
                 <li><a href="#galeria" class="nav-link">Galería</a></li>
+                <li><a href="#gestion" class="nav-link">Gestión</a></li>
+                <li><a href="#reportes" class="nav-link">Reportes</a></li>
                 <li><a href="#contacto" class="nav-link">Contacto</a></li>
             </ul>
 
@@ -127,7 +129,7 @@
                 <div class="team-grid team-grid-2">
                     <article class="team-card reveal">
                         <img src="img/equipo/kevin.jpg" alt="Retrato de Kevin A. Pichardo" loading="lazy">
-                        <h4>Kevin A. Pichardo</h4>
+                        <h4>Kevin Alexander Pichardo</h4>
                         <p>Desarrollador del proyecto</p>
                     </article>
                     <article class="team-card reveal">
@@ -366,6 +368,136 @@
             </div>
         </section>
 
+
+        <!-- ==================== GESTIÓN DE GANADO ==================== -->
+        <section id="gestion" class="section section-alt gestion-section">
+            <div class="container">
+                <p class="section-eyebrow reveal">Administración dinámica</p>
+                <h2 class="section-title reveal">Gestión de Ganado</h2>
+                <p class="gestion-intro reveal">Registra y administra los animales de la finca. Los datos se validan y se almacenan directamente en PostgreSQL mediante la API desarrollada con Node.js y Express.</p>
+
+                <div class="gestion-layout">
+                    <form id="formGanado" class="admin-card gestion-form reveal" novalidate>
+                        <input type="hidden" id="ganadoId">
+                        <div class="admin-card-header">
+                            <div>
+                                <span class="admin-kicker">Formulario</span>
+                                <h3 id="tituloFormulario">Registrar animal</h3>
+                            </div>
+                            <i class="fa-solid fa-cow admin-icon"></i>
+                        </div>
+
+                        <div class="form-grid-admin">
+                            <div class="form-group">
+                                <label for="codigoGanado">Código *</label>
+                                <input type="text" id="codigoGanado" maxlength="15" placeholder="Ej.: GAN-001" required>
+                                <span class="error-msg" id="errorCodigoGanado"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="nombreGanado">Nombre *</label>
+                                <input type="text" id="nombreGanado" maxlength="60" placeholder="Nombre del animal" required>
+                                <span class="error-msg" id="errorNombreGanado"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="razaGanado">Raza *</label>
+                                <select id="razaGanado" required>
+                                    <option value="">Seleccione una raza</option>
+                                </select>
+                                <span class="error-msg" id="errorRazaGanado"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="sexoGanado">Sexo *</label>
+                                <select id="sexoGanado" required>
+                                    <option value="">Seleccione</option>
+                                    <option value="Hembra">Hembra</option>
+                                    <option value="Macho">Macho</option>
+                                </select>
+                                <span class="error-msg" id="errorSexoGanado"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="fechaNacimiento">Fecha de nacimiento *</label>
+                                <input type="date" id="fechaNacimiento" required>
+                                <span class="error-msg" id="errorFechaNacimiento"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="pesoGanado">Peso en kg *</label>
+                                <input type="number" id="pesoGanado" min="1" max="2000" step="0.01" placeholder="Ej.: 420.50" required>
+                                <span class="error-msg" id="errorPesoGanado"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="estadoGanado">Estado *</label>
+                                <select id="estadoGanado" required>
+                                    <option value="Activo">Activo</option>
+                                    <option value="En observación">En observación</option>
+                                    <option value="Vendido">Vendido</option>
+                                </select>
+                                <span class="error-msg" id="errorEstadoGanado"></span>
+                            </div>
+                            <div class="form-group form-group-full">
+                                <label for="observacionesGanado">Observaciones</label>
+                                <textarea id="observacionesGanado" maxlength="250" rows="3" placeholder="Información adicional (opcional)"></textarea>
+                                <span class="field-counter"><span id="contadorObservaciones">0</span>/250</span>
+                            </div>
+                        </div>
+
+                        <div id="mensajeGestion" class="api-message" role="status"></div>
+                        <div class="form-actions-admin">
+                            <button type="submit" class="btn btn-primary" id="btnGuardarGanado"><i class="fa-solid fa-floppy-disk"></i> Guardar registro</button>
+                            <button type="button" class="btn btn-secondary hidden" id="btnCancelarEdicion"><i class="fa-solid fa-xmark"></i> Cancelar edición</button>
+                        </div>
+                    </form>
+
+                    <aside class="admin-card gestion-summary reveal">
+                        <div class="admin-card-header">
+                            <div><span class="admin-kicker">Resumen</span><h3>Estado del inventario</h3></div>
+                            <i class="fa-solid fa-chart-simple admin-icon"></i>
+                        </div>
+                        <div class="summary-stat"><span>Total registrado</span><strong id="totalGanado">0</strong></div>
+                        <div class="summary-stat"><span>Animales activos</span><strong id="ganadoActivo">0</strong></div>
+                        <div class="summary-stat"><span>En observación</span><strong id="ganadoObservacion">0</strong></div>
+                        <p class="summary-note"><i class="fa-solid fa-database"></i> Información obtenida en tiempo real desde nuestra base de datos.</p>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== REPORTES ==================== -->
+        <section id="reportes" class="section reportes-section">
+            <div class="container">
+                <div class="report-header reveal">
+                    <div>
+                        <p class="section-eyebrow">Información administrativa</p>
+                        <h2 class="section-title">Reporte de Ganado</h2>
+                    </div>
+                    <div class="report-header-actions no-print">
+                        <button type="button" class="btn btn-excel" id="btnExportarExcel"><i class="fa-solid fa-file-excel"></i> Exportar a Excel</button>
+                        <button type="button" class="btn btn-primary" id="btnImprimirReporte"><i class="fa-solid fa-print"></i> Imprimir reporte</button>
+                    </div>
+                </div>
+
+                <div class="report-toolbar reveal">
+                    <div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input type="search" id="buscarGanado" placeholder="Buscar por código, nombre, raza o estado..."></div>
+                    <select id="filtroEstado" aria-label="Filtrar por estado">
+                        <option value="">Todos los estados</option>
+                        <option value="Activo">Activo</option>
+                        <option value="En observación">En observación</option>
+                        <option value="Vendido">Vendido</option>
+                    </select>
+                    <button type="button" class="btn btn-secondary" id="btnActualizarReporte"><i class="fa-solid fa-rotate"></i> Actualizar</button>
+                </div>
+
+                <div class="table-card reveal">
+                    <div class="table-responsive">
+                        <table class="report-table">
+                            <thead><tr><th>Código</th><th>Nombre</th><th>Raza</th><th>Sexo</th><th>Nacimiento</th><th>Peso</th><th>Estado</th><th class="no-print">Acciones</th></tr></thead>
+                            <tbody id="tablaGanado"><tr><td colspan="8" class="table-status">Cargando registros...</td></tr></tbody>
+                        </table>
+                    </div>
+                    <div class="table-footer"><span id="cantidadRegistros">0 registros</span><span>Fuente: El Progreso</span></div>
+                </div>
+            </div>
+        </section>
+
         <!-- ==================== CONTACTO ==================== -->
         <section id="contacto" class="section">
             <div class="container contact-grid">
@@ -451,5 +583,6 @@
     <script src="js/script.js"></script>
     <script src="js/gallery.js"></script>
     <script src="js/form.js"></script>
+    <script src="js/gestion.js"></script>
 </body>
 </html>

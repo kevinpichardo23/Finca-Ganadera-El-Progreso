@@ -1,70 +1,103 @@
-# 🐄 Finca El Progreso — Sitio Web
+# Finca Ganadera El Progreso — Fase 2
 
-Sitio web institucional para **Finca El Progreso**, una finca ganadera dedicada a la producción de leche, quesos artesanales y carne bovina de calidad. Proyecto desarrollado para la asignatura de **Desarrollo Web** de Ingeniería en Sistemas.
+Aplicación web dinámica desarrollada con HTML5, CSS3, JavaScript, Node.js, Express.js y PostgreSQL.
 
-## 📋 Descripción
+## Estructura del proyecto
 
-El sitio presenta la historia, misión, visión y valores de la finca, sus servicios (producción de leche, venta de ganado, producción de carne, asesoría agropecuaria y crianza/reproducción bovina), sus productos, una galería de instalaciones y un formulario de contacto validado con JavaScript.
-
-## 🛠️ Tecnologías utilizadas
-
-- **HTML5** — estructura semántica (`header`, `nav`, `main`, `section`, `article`, `footer`, `figure`).
-- **CSS3** — Flexbox y CSS Grid para el layout, variables CSS para la paleta de colores y animaciones propias.
-- **JavaScript (Vanilla)** — sin frameworks ni librerías de terceros para la lógica del sitio.
-- **Google Fonts** — tipografías `Fraunces` (títulos) y `Jost` (texto).
-- **Font Awesome** — iconografía.
-
-> No se utilizó Bootstrap, Tailwind, React, Vue, Angular, jQuery, PHP ni bases de datos.
-
-## 📂 Estructura del proyecto
-
-```
-Finca-El-Progreso/
-│
-├── index.html
-├── css/
-│   ├── style.css         # variables, layout y componentes
-│   ├── responsive.css    # adaptación a tablets y celulares
-│   └── animations.css    # animaciones y transiciones
-│
-├── js/
-│   ├── script.js         # navbar, scroll, contador y reveal
-│   ├── gallery.js        # lightbox de la galería
-│   └── form.js           # validación del formulario
-│
-├── img/
-│   ├── logo/
-│   ├── banner/
-│   ├── servicios/
-│   ├── productos/
-│   ├── galeria/
-│   └── equipo/
-│
+```text
+Finca-El-Progreso-Fase-2-Organizado/
+├── frontend/
+│   ├── index.html
+│   ├── css/
+│   ├── js/
+│   └── img/
+├── backend/
+│   ├── database/
+│   │   └── schema.sql
+│   ├── .env.example
+│   ├── db.js
+│   ├── package.json
+│   └── server.js
+├── .gitignore
 └── README.md
 ```
 
-## ▶️ Cómo ejecutar el proyecto
+## Funcionalidades
 
-1. Descarga o clona este repositorio.
-2. Abre el archivo `index.html` directamente en tu navegador, **o** usa una extensión tipo *Live Server* para servirlo localmente.
-3. No requiere instalación de dependencias ni servidor backend.
+- Conserva Inicio, Nosotros, Servicios, Productos, Galería y Contacto.
+- Incluye Gestión de Ganado con CRUD completo.
+- Registra, consulta, modifica y elimina información.
+- Genera reportes dinámicos desde PostgreSQL.
+- Incluye búsqueda, filtro por estado e impresión.
+- Utiliza las tablas relacionadas `razas` y `ganado`.
+- Incluye llaves primarias, llave foránea y datos de prueba.
+- Valida datos en el frontend y en el backend.
 
-## 🌐 Publicación en GitHub Pages
+## Configuración de PostgreSQL
 
-1. Sube el contenido de esta carpeta a un repositorio de GitHub.
-2. Ve a **Settings → Pages**.
-3. En *Source*, selecciona la rama `main` y la carpeta `/root`.
-4. Guarda los cambios; GitHub Pages generará la URL pública del sitio.
+1. Crea la base de datos:
 
-## 🖼️ Capturas
+```sql
+CREATE DATABASE finca_el_progreso;
+```
 
-_(espacio reservado para agregar capturas del sitio una vez publicado)_
+2. Ejecuta el archivo:
 
-- Inicio: `capturas/inicio.png`
-- Servicios: `capturas/servicios.png`
-- Galería: `capturas/galeria.png`
-- Contacto: `capturas/contacto.png`
+```text
+backend/database/schema.sql
+```
 
-## ✒️ Autor
+Desde una terminal también puedes utilizar:
 
-Proyecto desarrollado como parte del curso de Desarrollo Web — Ingeniería en Sistemas.
+```bash
+psql -U postgres -d finca_el_progreso -f backend/database/schema.sql
+```
+
+## Configuración del backend
+
+Entra a la carpeta `backend`:
+
+```bash
+cd backend
+```
+
+Copia `.env.example`, renómbralo como `.env` y configura tus datos:
+
+```env
+PORT=3000
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=finca_el_progreso
+DB_USER=postgres
+DB_PASSWORD=tu_contraseña
+```
+
+Instala las dependencias y ejecuta el servidor:
+
+```bash
+npm install
+npm start
+```
+
+Abre en el navegador:
+
+```text
+http://localhost:3000
+```
+
+El backend sirve automáticamente el contenido de la carpeta `frontend`, por lo que no debes abrir `index.html` directamente.
+
+## API REST
+
+- `GET /api/salud`
+- `GET /api/razas`
+- `GET /api/ganado`
+- `GET /api/ganado/:id`
+- `POST /api/ganado`
+- `PUT /api/ganado/:id`
+- `DELETE /api/ganado/:id`
+
+
+## Exportar reporte a Excel
+
+En la sección **Reportes** se incluye el botón **Exportar a Excel**. El backend consulta los registros directamente desde PostgreSQL y genera un archivo `.xlsx` con título, fecha, filtros, formatos y todos los datos del ganado.
